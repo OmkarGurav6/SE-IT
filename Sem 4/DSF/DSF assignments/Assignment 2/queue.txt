@@ -1,0 +1,514 @@
+
+
+/*Problem statement:
+  2. Implement priority queue as ADT using single linked list for servicing patients in an hospital with priorities as 
+  i) Serious (top priority) 
+  ii) medium illness (medium priority) 
+  iii) General (Least priority).
+*/
+
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+
+class patient1
+{
+
+    public:
+
+    char name[50];
+	int disease;
+	int age;
+	int priority;
+
+	int getdata()
+	{
+		cout<<"\nEnter name of patient: ";
+		cin>>name;
+
+		do
+		 {
+            cout<<"\nEnter age of patient:  ";
+		    cin>>age;
+		 }
+		while(age<=0);
+
+
+		cout<<"\n1.Accident\n2.Organ Failure\n3.Swine flu\n4.High BP\n5.Fever\n6.Common cold\n7.Other symptoms";
+		cout<<"\n\nEnter disease number:";
+		cin>>disease;
+
+		switch(disease)
+		{
+		    case 1: priority=1;   break;
+
+		    case 2: priority=1;   break;
+
+		    case 3: priority=2;   break;
+
+		    case 4: priority=2;   break;
+
+		    case 5: priority=3;   break;
+
+		    case 6: priority=3;   break;
+
+		    case 7: priority=3;   break;
+		}
+
+		return priority;
+	}
+
+	void display()
+	{
+		cout<<"\n\n\tName:"<<name;
+		cout<<"\n\n\tAge:<<age;
+		cout<<"\n\n\tDisease:"<<disease;
+		cout<<"\n\n\tPriority:"<<priority;
+	}
+
+};
+
+class node
+{
+    public:
+
+	node *next;
+	patient1 p;
+
+	node()
+	{
+		next=NULL;
+	}
+};
+
+
+class queue1
+{
+
+    public:
+
+	node *front,*rear;
+
+	queue1()
+	{
+		front=NULL;
+		rear=NULL;
+	}
+
+	void enqueue(patient1 d);
+	patient1 dequeue();
+	void display1();
+	/*int empty()
+	{
+		if(front==NULL)
+		return 1;
+		return 0;
+	}*/
+
+};
+
+
+void queue1::enqueue(patient1 d)
+{
+     node *temp=new node;
+
+     temp->p=d;
+
+     if(front==NULL)
+		{
+			front=temp;
+			rear=temp;
+		}
+		else
+		{
+			rear->next=temp;
+			rear=rear->next;
+		}
+}
+
+
+patient1 queue1::dequeue()
+{
+		patient1 x ;
+		node *y;
+
+		if(front==NULL)
+        {
+            cout<<"\nQueue is empty";
+        }
+        else
+        {
+           x=front->p;
+		   y=front;
+		   front=front->next;
+
+           delete y;
+
+		   return x;
+        }
+
+}
+
+
+void queue1::display1()
+{
+		node *h;
+
+		patient1 m;
+
+		if(front==NULL)
+		{
+			cout<<"\nQueue is empty";
+			return;
+		}
+
+        int i=0;
+        h=front;
+
+        cout<<"\n\nSr.no. \tName \t\tDisease no \tAge \n";
+
+        while(h!=NULL)
+        {
+            m=h->p;
+
+            cout<<"\n"<<++i<<"\t"<<m.name<<"\t\t"<<m.disease<<"\t\t"<<m.age;
+
+            h=h->next;
+        }
+
+}
+
+
+class queue2
+{
+
+    public:
+
+	queue1 q[3];
+
+	void insert1()
+	{
+		int a;
+
+		patient1 b;
+		a=b.getdata();
+		q[a-1].enqueue(b);
+	}
+
+	void service1()
+	{
+		int i=0;
+
+		while(i<3 && q[i].front==NULL)
+			i++;
+
+		if(i==3)
+			cout<<"\nQueues are empty\n";
+		else
+		{
+			patient1 a;
+			a=q[i].dequeue();
+			a.display();
+		}
+	}
+
+	void record()
+	{
+	    cout<<"\nSerious case:  ";
+		q[0].display1();
+		cout<<"\n\nMedium case:   ";
+		q[1].display1();
+		cout<<"\n\nLess serious case:   ";
+		q[2].display1();
+	}
+};
+
+
+int main()
+{
+	queue2 q;
+
+	int ch,f;
+
+	do
+	{
+		cout<<"\n1.Enter patient in queue ";
+		cout<<"\n2.Remove patient from queue ";
+		cout<<"\n3.Record ";
+		cout<<"\nEnter your choice: ";
+		cin>>ch;
+
+		switch(ch)
+		{
+
+			case 1:
+
+            q.insert1();
+			break;
+
+			case 2:
+            q.service1();
+			break;
+
+			case 3:
+            q.record();
+			break;
+
+		}
+
+       cout<<"\n\nDo u want to choose another option?  (0/1):";
+       cin>>f;
+	}
+	while(f==1);
+
+}
+
+
+
+OUTPUT:
+
+
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 1
+
+Enter name of patient: Amey
+
+Enter age of patient:  20
+
+1.Accident
+2.Organ Failure
+3.Swine flu
+4.High BP
+5.Fever
+6.Common cold
+7.Other symptoms
+
+Enter disease number:3
+
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 1
+
+Enter name of patient: Yatish
+
+Enter age of patient:  33
+
+1.Accident
+2.Organ Failure
+3.Swine flu
+4.High BP
+5.Fever
+6.Common cold
+7.Other symptoms
+
+Enter disease number:1
+
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 1
+
+Enter name of patient: Maitreya
+
+Enter age of patient:  42
+
+1.Accident
+2.Organ Failure
+3.Swine flu
+4.High BP
+5.Fever
+6.Common cold
+7.Other symptoms
+
+Enter disease number:6
+
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 1
+
+Enter name of patient: Shubham
+
+Enter age of patient:  19
+
+1.Accident
+2.Organ Failure
+3.Swine flu
+4.High BP
+5.Fever
+6.Common cold
+7.Other symptoms
+
+Enter disease number:7
+
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 1
+
+Enter name of patient: Mayuri
+
+Enter age of patient:  24
+
+1.Accident
+2.Organ Failure
+3.Swine flu
+4.High BP
+5.Fever
+6.Common cold
+7.Other symptoms
+
+Enter disease number:2
+
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 3
+
+Serious case:
+
+Sr.no.  Name            Disease no      Age
+
+1       Yatish          1               33
+2       Mayuri          2               24
+
+Medium case:
+
+Sr.no.  Name            Disease no      Age
+
+1       Amey            3               20
+
+Less serious case:
+
+Sr.no.  Name            Disease no      Age
+
+1       Maitreya        6               42
+2       Shubham         7               19
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 2
+
+
+        Name:Yatish
+
+        Age:33
+
+        Disease:1
+
+        Priority:1
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 2
+
+
+        Name:Mayuri
+
+        Age:24
+
+        Disease:2
+
+        Priority:1
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 2
+
+
+        Name:Amey
+
+        Age:20
+
+        Disease:3
+
+        Priority:2
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 2
+
+
+        Name:Maitreya
+
+        Age:42
+
+        Disease:6
+
+        Priority:3
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 2
+
+
+        Name:Shubham
+
+        Age:19
+
+        Disease:7
+
+        Priority:3
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 2
+
+Queues are empty
+
+
+Do u want to choose another option?  (0/1):1
+
+1.Enter patient in queue
+2.Remove patient from queue
+3.Record
+Enter your choice: 3
+
+Serious case:
+Queue is empty
+
+Medium case:
+Queue is empty
+
+Less serious case:
+Queue is empty
+
+
+Do u want to choose another option?  (0/1):0
