@@ -1,0 +1,408 @@
+/*name:Omkar Gurav
+  batch:S3
+  Roll No.:8048 */
+
+
+
+//Weather report
+
+
+#include<iostream>
+#include<stdlib.h>
+using namespace std;
+class weather
+{
+	private:
+	int dateofmonth[32];
+	float hightemp[32],lowtemp[32],amount_rain[32],amount_snow[32];
+	public:
+		weather();                                       //default constructor
+		void getdata(int v);
+		void display();
+		void averagehightemp(int v);
+		void averagelowtemp(int v);
+		void averageamount_rain(int v);
+		void averageamount_snow(int v);
+};
+
+
+weather::weather()                                          //default constructor
+{
+	int p;
+	for(p=1;p<=31;p++)
+	{
+		dateofmonth[p]=0;
+		hightemp[p]=0;
+		lowtemp[p]=0;
+		amount_rain[p]=0;
+		amount_snow[p]=0;
+	}
+}
+
+
+
+void weather::getdata(int v)              //data entering
+{
+	int p;
+
+	for(p=1;p<=v;p++)
+	{
+	    cout<<"\t\tDATE: "<<p<<"\n";
+		cout<<"\nHIGH TEMP :";
+		cin>>hightemp[p];
+		cout<<"\nLOW TEMP :";
+		cin>>lowtemp[p];
+		cout<<"\nAMOUNT_RAIN : ";
+		cin>>amount_rain[p];
+		cout<<"\nAMOUNT_SNOW : ";
+		cin>>amount_snow[p];
+		cout<<"\n";
+	}
+}
+
+
+void weather::display()                                            //display function
+{
+	int p;
+	cout<<"\t\t\tWEATHER REPORT ";
+	cout<<"\n\n";
+	cout<<"\tDate"<<"\t\t"<<"H.Temp"<<"\t\t"<<"L.Temp"<<"\t\t"<<"Rainfall"<<"\t"<<"Snowfall";
+	cout<<"\n\n";
+	for(p=1;p<=31;p++)
+	{
+cout<<"\t"<<p<<"\t\t"<<hightemp[p]<<"\t\t"<<lowtemp[p]<<"\t\t"<<amount_rain[p]<<"\t \t"<<amount_snow[p];
+		cout<<"\n";
+	}
+}
+
+
+
+
+
+void weather::averagehightemp(int v)
+{
+	int p;
+	float sum=0,average;
+	for(p=1;p<=v;p++)
+	{
+		sum=sum+hightemp[p];
+	}
+	average=sum/31;
+	cout<<"\tAVERAGE HIGH TEMPERATURE- "<<average;
+	cout<<"\n";
+}
+
+
+void weather:: averagelowtemp(int v)
+{
+	int p;
+	float sum=0,average;
+	for(p=1;p<=v;p++)
+	{
+		sum=sum+lowtemp[p];
+	}
+	average=sum/31;
+	cout<<"\tAVERAGE LOW TEMPERATURE- "<<average;
+	cout<<"\n";
+}
+
+
+void weather:: averageamount_rain(int v)
+{
+	int p;
+	float sum=0,average;
+	for(p=1;p<=v;p++)
+	{
+		sum=sum+amount_rain[p];
+	}
+	average=sum/31;
+	cout<<"\tAVERAGE AMOUNT OF RAINFALL- "<<average;
+	cout<<"\n";
+}
+
+
+void weather:: averageamount_snow(int v)
+{
+	int p;
+	float sum=0,average;
+	for(p=1;p<=v;p++)
+	{
+		sum=sum+amount_snow[p];
+	}
+	average=sum/31;
+	cout<<"\tAVERAGE AMOUNT OF SN0W- "<<average;
+	cout<<"\n";
+}
+
+
+int main()
+{
+	int ch,v,a;
+   cout<<"Enter number of days you want for record";
+   cin>>v;
+
+	weather w;
+	w.getdata(v);
+
+	do
+	{
+		cout<<"\nLIST OF operation";
+		cout<<"\n";
+		cout<<"\n1. MONTHLY WEATHER REPORT";
+		cout<<"\n2. AVERAGE HIGH TEMPERATURE";
+		cout<<"\n3. AVERAGE LOW TEMPERATURE";
+		cout<<"\n4. AVERAGE RAIN ";
+		cout<<"\n5. AVERAGE SNOW";
+		cout<<"\n6. EXIT";
+		cout<<"\n";
+		cout<<"\nENTER YOUR CHOICE  ";
+		cin>>ch;
+		cout<<"\n";
+		switch(ch)
+		{
+			case 1:
+            w.display();
+            break;
+
+			case 2:
+            w.averagehightemp(v);
+            break;
+
+			case 3:
+            w.averagelowtemp(v);
+            break;
+
+			case 4:
+            w.averageamount_rain(v);
+            break;
+
+			case 5:
+            w.averageamount_snow(v);
+            break;
+
+            case 6:
+            exit(0);
+            break;
+
+            default:
+            cout <<"Invalid selection! Select a number between 1-6";
+            break;
+
+
+		}
+        cout<<"Do u want to perform any other operation?(0/1)";
+	    cin>>a;
+}
+
+while(a==1);
+return 0;
+}
+
+
+
+OUTPUT:
+
+
+
+
+Enter number of days you want for record
+10
+                DATE: 1
+
+HIGH TEMP :12
+
+LOW TEMP :3
+
+AMOUNT_RAIN : 700
+
+AMOUNT_SNOW : 300
+
+                DATE: 2
+
+HIGH TEMP :14
+
+LOW TEMP :2
+
+AMOUNT_RAIN : 750
+
+AMOUNT_SNOW : 125
+
+                DATE: 3
+
+HIGH TEMP :15
+
+LOW TEMP :3
+
+AMOUNT_RAIN : 740
+
+AMOUNT_SNOW : 112
+
+                DATE: 4
+
+HIGH TEMP :12
+
+LOW TEMP :2
+
+AMOUNT_RAIN : 680
+
+AMOUNT_SNOW : 100
+
+                DATE: 5
+
+HIGH TEMP :17
+
+LOW TEMP :4
+
+AMOUNT_RAIN : 750
+
+AMOUNT_SNOW : 100
+
+                DATE: 6
+
+HIGH TEMP :14
+
+LOW TEMP :4
+
+AMOUNT_RAIN : 760
+
+AMOUNT_SNOW : 120
+
+                DATE: 7
+
+HIGH TEMP :18
+
+LOW TEMP :2
+
+AMOUNT_RAIN : 700
+
+AMOUNT_SNOW : 110
+
+                DATE: 8
+
+HIGH TEMP :14
+
+LOW TEMP :3
+
+AMOUNT_RAIN : 650
+
+AMOUNT_SNOW : 90
+
+                DATE: 9
+
+HIGH TEMP :17
+
+LOW TEMP :3
+
+AMOUNT_RAIN : 700
+
+AMOUNT_SNOW : 125
+
+                DATE: 10
+
+HIGH TEMP :15
+
+LOW TEMP :4
+
+AMOUNT_RAIN : 780
+
+AMOUNT_SNOW : 128
+
+
+LIST OF operation
+
+1. MONTHLY WEATHER REPORT
+2. AVERAGE HIGH TEMPERATURE
+3. AVERAGE LOW TEMPERATURE
+4. AVERAGE RAIN
+5. AVERAGE SNOW
+
+ENTER YOUR CHOICE  1
+
+                        WEATHER REPORT
+
+        Date            H.Temp          L.Temp          Rainfall        Snowfall
+
+        1               12              3               700             300
+        2               14              2               750             125
+        3               15              3               740             112
+        4               12              2               680             100
+        5               17              4               750             100
+        6               14              4               760             120
+        7               18              2               700             110
+        8               14              3               650             90
+        9               17              3               700             125
+        10              15              4               780             128
+        11              0               0               0               0
+        12              0               0               0               0
+        13              0               0               0               0
+        14              0               0               0               0
+        15              0               0               0               0
+        16              0               0               0               0
+        17              0               0               0               0
+        18              0               0               0               0
+        19              0               0               0               0
+        20              0               0               0               0
+        21              0               0               0               0
+        22              0               0               0               0
+        23              0               0               0               0
+        24              0               0               0               0
+        25              0               0               0               0
+        26              0               0               0               0
+        27              0               0               0               0
+        28              0               0               0               0
+        29              0               0               0               0
+        30              0               0               0               0
+        31              0               0               0               0
+Do u want to perform any other operation?(0/1) 1
+
+LIST OF operation
+
+1. MONTHLY WEATHER REPORT
+2. AVERAGE HIGH TEMPERATURE
+3. AVERAGE LOW TEMPERATURE
+4. AVERAGE RAIN
+5. AVERAGE SNOW
+
+ENTER YOUR CHOICE  2
+
+        AVERAGE HIGH TEMPERATURE- 4.77419
+Do u want to perform any other operation?(0/1) 1
+
+LIST OF operation
+
+1. MONTHLY WEATHER REPORT
+2. AVERAGE HIGH TEMPERATURE
+3. AVERAGE LOW TEMPERATURE
+4. AVERAGE RAIN
+5. AVERAGE SNOW
+
+ENTER YOUR CHOICE  3
+
+        AVERAGE LOW TEMPERATURE- 0.967742
+Do u want to perform any other operation?(0/1) 1
+
+LIST OF operation
+
+1. MONTHLY WEATHER REPORT
+2. AVERAGE HIGH TEMPERATURE
+3. AVERAGE LOW TEMPERATURE
+4. AVERAGE RAIN
+5. AVERAGE SNOW
+
+ENTER YOUR CHOICE  4
+
+        AVERAGE AMOUNT OF RAINFALL- 232.581
+Do u want to perform any other operation?(0/1) 1
+
+LIST OF operation
+
+1. MONTHLY WEATHER REPORT
+2. AVERAGE HIGH TEMPERATURE
+3. AVERAGE LOW TEMPERATURE
+4. AVERAGE RAIN
+5. AVERAGE SNOW
+
+ENTER YOUR CHOICE  5
+
+        AVERAGE AMOUNT OF SN0W- 42.2581
+Do u want to perform any other operation?(0/1) 0

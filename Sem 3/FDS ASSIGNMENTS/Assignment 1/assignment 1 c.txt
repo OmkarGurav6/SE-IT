@@ -1,0 +1,292 @@
+#include<stdio.h>
+
+
+void accept(int a[],int b)
+{
+  int i,j;
+
+  printf("\nEnter the elements of array  ");
+  scanf("%d",&a[0]);
+  for(i=1;i<b;i++)
+  {
+	scanf("%d",&a[i]);
+	for(j=0;j<i;j++)
+	{
+      if(a[i]==a[j])
+		{
+          printf("Enter another number ");
+          i--;
+          break;
+		}
+	}
+  }
+  printf("\n\nTHE SET IS-");
+  for(i=0;i<b;i++)
+  {
+	printf("  %d  " ,a[i]);
+  }
+}
+
+
+int  unon(int a[],int b[],int i,int j,int c[])
+{
+  int w,k=0,m,n,flag,d;
+  for(w=0;w<i; w++)
+	{
+      c[k]=a[w];
+      k++;
+	}
+
+  for(m=0;m<i;m++)
+	{
+      flag=0;
+      for(n=0;n<j;n++)
+		{
+          if(b[m]==a[n])
+			{
+              flag=1;
+              break;
+			}
+        }
+
+		if(flag==0)
+		{
+           c[k]=b[m];
+           k++;
+        }
+	}
+
+	for(d=0;d<k;d++)
+	{
+		printf(" \n%d ",c[d]);
+	}
+    printf("\nNUMBER OF ELEMENTS= %d",k);
+    printf("\n");
+    return k;
+}
+
+
+ int intersection(int a[],int b[],int x,int y,int c[])
+{
+  int i,j,m=0;
+  for(i=0;i<x;i++)
+  {
+	for(j=0;j<y;j++)
+	{
+      if(a[i]==b[j])
+		{
+          c[m]=b[j];
+          m++;
+          break;
+		}
+	}
+  }
+
+  printf("\nintersection of 2 sets is");
+  for(i=0;i<m;i++)
+  {
+   printf(" %d ",c[i]);
+  }
+  printf("\nNUMBER OF ELEMENTS= %d",m);
+  printf("\n");
+  return m;
+}
+
+
+int difference(int a[],int b[],int t,int z,int c[])
+{
+  int i,j,y,x=0;
+  for(i=0;i<t;i++)
+  {
+	y=0;
+	for(j=0;j<z;j++)
+	{
+      if(a[i]==b[j])
+		{
+          y=1;
+          break;
+		}
+	}
+
+	if(y==0)
+	{
+      c[x]=a[i];
+      x++;
+	}
+  }
+
+  printf("\nDIFFERENCE OF TWO SETS");
+  for(j=0;j<x;j++)
+  {
+   printf("\n %d ",c[j]);
+  }
+  printf("\nNUMBER OF ELEMENTS = %d",x);
+  printf("\n");
+  return x;
+}
+
+
+void main()
+{
+  int i,j,k,ch,p,q,r,s,a;
+  int array1[i],array2[j],array3[20],array4[20],array5[10],array6[10],array7[10];
+
+  printf("\nEnter the size of  array \n");
+  scanf("%d",&i);
+  while(i<=0)
+  {
+    printf("Invalid size!!! Enter again");
+    printf("\nEnter the size of  array \n");
+    scanf("%d",&i);
+  }
+  accept(array1,i);
+
+  printf("\nEnter the size of array ");
+  scanf("%d",&j);
+  while(j<=0)
+  {
+    printf("Invalid size!!! Enter again");
+    printf("\nEnter the size of  array \n");
+    scanf("%d",&i);
+  }
+  accept(array2,j);
+
+  printf("\n");
+  for(a=1;a<=5;a++)
+ {
+  printf("\nList of operations\n1.Union\n2.Interesection\n3.A-B\n4.B-A\n5.Symmetric difference\n");
+  printf("\n\nENTER YOUR CHOICE ");
+  scanf("%d",&ch);
+  switch(ch)
+  {
+   case 1:
+   r=unon(array1,array2,i,j,array3);
+   break;
+
+   case 2:
+   s=intersection(array1,array2,i,j,array4);
+   break;
+
+   case 3:
+   p=difference(array1,array2,i,j,array5);
+   break;
+
+   case 4:
+   q=difference(array2,array1,j,i,array6);
+   break;
+
+   case 5:
+   unon(array5,array6,p,q,array7);
+   break;
+  }
+ }
+}
+
+Output:
+
+
+Enter the size of  set: -4
+
+Invalid size!!!Enter again
+Enter the size of  set: 7
+
+Enter the elements of set : 24
+56
+87
+32
+98
+43
+21
+
+
+The set is: 24  56  87  32  98  43  21
+Enter the size of  set: 5
+
+Enter the elements of set : 32
+45
+67
+32
+Enter another number : 56
+21
+
+
+The set is: 32  45  67  56  21
+
+List of operations:
+1.Union
+2.Intersection
+3.A-B
+4.B-A
+5.Symmetric difference
+6.Exit
+
+Enter your choice : 1
+
+Union of sets is: 24  56  87  32  98  43  21  45  67
+Do u want to perform another operation?(0/1)1
+
+List of operations:
+1.Union
+2.Intersection
+3.A-B
+4.B-A
+5.Symmetric difference
+6.Exit
+
+Enter your choice : 2
+
+Intersection of sets is: 56  32  21
+Do u want to perform another operation?(0/1)1
+
+List of operations:
+1.Union
+2.Intersection
+3.A-B
+4.B-A
+5.Symmetric difference
+6.Exit
+
+Enter your choice : 3
+
+Difference of sets is: 24  87  98  43
+Number of elements = 4
+
+Do u want to perform another operation?(0/1)1
+
+List of operations:
+1.Union
+2.Intersection
+3.A-B
+4.B-A
+5.Symmetric difference
+6.Exit
+
+Enter your choice : 4
+
+Difference of sets is: 45  67
+Number of elements = 2
+
+Do u want to perform another operation?(0/1)1
+
+List of operations:
+1.Union
+2.Intersection
+3.A-B
+4.B-A
+5.Symmetric difference
+6.Exit
+
+Enter your choice : 5
+
+Symmetric Difference of sets is: 24  87  98  43  45  67
+Do u want to perform another operation?(0/1)1
+
+List of operations:
+1.Union
+2.Intersection
+3.A-B
+4.B-A
+5.Symmetric difference
+6.Exit
+
+Enter your choice : 6

@@ -1,0 +1,167 @@
+#include<iostream>
+#include<fstream>
+#include<iomanip>
+
+using namespace std;
+
+class employee
+{
+ char name[20];
+ int id_no;
+ int salary;
+ int experience;
+ char skills[20];
+
+ public:
+
+ void getdata();
+ void display();
+
+};
+
+void employee::getdata()
+{
+
+ cout<<"\nEnter details of employee: ";
+ cout<<"\nEnter name of employee:";
+ cin>>name;
+
+ cout<<"\nEnter id no. of employee:";
+ cin>>id_no;
+
+ cout<<"\nEnter salary of employee:";
+ cin>>salary;
+
+ cout<<"\nEnter experience of employee in years:";
+ cin>>experience;
+
+ cout<<"\nEnter skills of employee:";
+ cin>>skills;
+
+}
+
+void employee::display()
+{
+
+  cout<<"\nName       : "<<name;
+  cout<<"\n\nId no      : "<<id_no;
+  cout<<"\n\nSalary     : "<<salary;
+  cout<<"\n\nExperience : "<<experience;
+  cout<<"\n\nSkills     : "<<skills;
+
+}
+
+
+
+int main()
+{
+  employee e[50];
+  int i,n;
+  fstream f;
+
+  cout<<"\nEnter number of records u want to enter:";
+  cin>>n;
+
+  f.open("employee.bin",ios:: binary| ios::out);
+
+  for(i=0;i<n;i++)
+  {
+    e[i].getdata();
+    f.write((char *)&e[i],sizeof(e[i]));
+  }
+
+  f.close();
+
+
+  f.seekg(0);
+
+  cout<<"\nReading from file";
+
+  f.open("employee.bin",ios:: binary| ios::in);
+
+   cout<<"\n\nRecord:";
+
+  for(i=0;i<n;i++)
+  {
+
+  f.read((char*)&e[i],sizeof(e[i]));
+  e[i].display();
+  }
+
+  f.close();
+  return 0;
+}
+
+
+
+Output:
+
+
+
+Enter number of records u want to enter:3
+
+Enter details of employee:
+Enter name of employee:sarvesh
+
+Enter id no. of employee:11012
+
+Enter salary of employee:35050
+
+Enter experience of employee in years:3
+
+Enter skills of employee:communication,leadership
+
+Enter details of employee:
+Enter name of employee:mahesh
+
+Enter id no. of employee:11034
+
+Enter salary of employee:40456
+
+Enter experience of employee in years:5
+
+Enter skills of employee:teamwork,analytical_skills
+
+Enter details of employee:
+Enter name of employee:omkar
+
+Enter id no. of employee:11048
+
+Enter salary of employee:36890
+
+Enter experience of employee in years:2
+
+Enter skills of employee:mentoring,project_management
+
+Reading from file
+
+Record:
+Name       : sarvesh
+
+Id no      : 11012
+
+Salary     : 35050
+
+Experience : 3
+
+Skills     : communication,leader
+
+Name       : mahesh
+
+Id no      : 11034
+
+Salary     : 40456
+
+Experience : 5
+
+Skills     : teamwork,analytical_skills
+
+Name       : omkar
+
+Id no      : 11048
+
+Salary     : 36890
+
+Experience : 2
+
+Skills     : mentoring,project_management

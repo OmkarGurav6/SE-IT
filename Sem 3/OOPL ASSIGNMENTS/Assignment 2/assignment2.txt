@@ -1,0 +1,458 @@
+#include<iostream>
+#include<string.h>
+using namespace std;
+class book
+{
+    char *title,*author,*publisher;
+    float *price;
+    int *stock;
+
+
+    public:
+    static int suc_transaction;
+    static int unsuc_transaction;
+    static int total_count;
+
+    book()                                       //default constructor
+    {
+        title = new char[50];
+        author = new char[50];
+        publisher = new char[50];
+        price = new float;
+        stock = new int;
+    }
+
+    //function for adding book
+    void add()
+    {
+        cout<<"\nEnter name of book:";
+        cin>>title;
+        cout<<"\nEnter name of author of book:";
+        cin>>author;
+        cout<<"\nEnter name of publisher of book:";
+        cin>>publisher;
+        cout<<"\nEnter price of book:";
+        cin>>*price;
+        cout<<"\nEnter stock of book:";
+        cin>>*stock;
+        total_count+=*stock;
+    }
+
+
+    //function to display details
+    void display()
+    {
+        cout<<"\n"<<title<<"\t"<<author<<"\t"<<publisher<<"\t\t"<<*price<<"\t"<<*stock;
+    }
+
+    //function for searching book
+    int search(char a[])
+    {
+       if(strcmp(a,title))
+        return 0;
+       else return 1;
+    }
+
+    //function for updating details
+    void update_details()
+    {
+        total_count-=*stock;
+        cout<<"\nEnter updated name of book:";
+        cin>>title;
+        cout<<"\nEnter updated name of author of book";
+        cin>>author;
+        cout<<"\nEnter updated name of publisher of book:";
+        cin>>publisher;
+        cout<<"\nEnter updated price of book:";
+        cin>>*price;
+        cout<<"\nEnter updated stock of book:";
+        cin>>*stock;
+        total_count+=*stock;
+    }
+
+    //function for purchasing book
+    void purchase()
+    {
+      int c;
+      cout<<"\nEnter number of copies want to buy:";
+      cin>>c;
+
+      if(c<=*stock)
+      {
+          *stock=*stock-c;
+          cout<<"\nBook bought successfully";
+          total_count=total_count-c;
+          suc_transaction++;
+      }
+      else
+      {
+          cout<<"\nRequired number of copies are not available in stock";
+          unsuc_transaction++;
+      }
+
+    }
+
+    //static function for displaying transaction history
+    static void transaction()
+    {
+        cout<<"\nSuccessful transactions:"<<suc_transaction;
+        cout<<"\nUnsuccessful transactions:"<<unsuc_transaction;
+    }
+
+};
+
+int book::total_count;
+int book::suc_transaction;
+int book::unsuc_transaction;
+
+//main function
+int main()
+{
+   book b[50];
+   int ch,i=0,f,a;
+   char titlebuy[50];
+
+   do
+   {
+       cout<<"\n1.Add book \n2.Display book details\n3.Update book details \n4.Search book by title \n5.Buy a book \n6.Transaction History\n";
+       cout<<"\nEnter choice\n";
+       cin>>ch;
+
+       switch(ch)
+
+       {
+        case 1:
+          b[i].add();
+          i++;
+          break;
+
+        case 2:
+            cout<<"\nTitle"<<"\t"<<"Author"<<"\t"<<"Publisher"<<"\t"<<"Price"<<"\t"<<"Stock";
+            for(int j=0;j<i;j++)
+                b[j].display();
+            break;
+
+
+        case 3:
+            cout << "\nEnter name of book you want to update\n";
+            cin >> titlebuy;
+
+            for(a=0;a<i;a++)
+                {
+                    if(b[a].search(titlebuy))
+                  {
+                    b[a].update_details();
+                    cout<<"\nTitle"<<"\t"<<"Author"<<"\t"<<"Publisher"<<"\t"<<"Price"<<"\t"<<"Stock";
+                    b[a].display();
+                    break;
+                  }
+                }
+            if(a==i)
+                cout<<"\nBook is not in stock";
+            break;
+
+
+        case 4:
+            cout << "\nEnter name of book you want to search\n";
+            cin >> titlebuy;
+
+            for(a=0;a<i;a++)
+                {
+                    if(b[a].search(titlebuy))
+                  {
+                    cout<<"\nTitle"<<"\t"<<"Author"<<"\t"<<"Publisher"<<"\t"<<"Price"<<"\t"<<"Stock";
+                    b[a].display();
+                    break;
+                  }
+                }
+            if(a==i)
+                cout<<"\nBook is not in stock";
+            break;
+
+
+        case 5:
+            cout << "\nEnter name of book you want to buy\n";
+            cin >> titlebuy;
+
+            for(a=0;a<i;a++)
+                {
+                    if(b[a].search(titlebuy))
+                  {
+                    b[a].purchase();
+                    break;
+                  }
+                }
+            if(a==i)
+                cout<<"\nBook is not in stock";
+            break;
+
+        case 6:
+            cout<<"\nTransaction record\n";
+            book::transaction();
+            break;
+      }
+      cout<<"\nDo u want to choose another option? (0/1)";
+       cin>>f;
+    }
+   while(f==1);
+
+   return 0;
+}
+
+
+Output:
+
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+1
+
+Enter name of book:mahashweta
+
+Enter name of author of book:sudha_murti
+
+Enter name of publisher of book:penguin_books
+
+Enter price of book:150
+
+Enter stock of book:30
+
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+2
+Title               Author              Publisher           Price     Stock
+
+mahashweta          sudha_murti         penguin_books       150       30             
+
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+1
+
+Enter name of book:A_game_of_thrones
+
+Enter name of author of book:george_r_r_martin
+
+Enter name of publisher of book:harper_voyager
+
+Enter price of book:550
+
+Enter stock of book:40
+
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+1
+
+Enter name of book:A_clash_of_kings
+
+Enter name of author of book:george_r_r_martin
+
+Enter name of publisher of book:harper_voyager
+
+Enter price of book:570
+
+Enter stock of book:30
+
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+1
+
+Enter name of book:let_us_c
+
+Enter name of author of book:yashvant_kanetkar
+
+Enter name of publisher of book:BPB
+
+Enter price of book:200
+
+Enter stock of book:30
+
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+2
+Title               Author              Publisher           Price     Stock
+
+mahashweta          sudha_murti         penguin_books       150       30             
+
+A_game_of_thrones   george_r_r_martin   harper_voyager      550       40             
+
+A_clash_of_kings    george_r_r_martin   harper_voyager      570       30             
+
+let_us_c            yashvant_kanetkar   BPB                 200       30             
+
+
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+3
+
+Enter name of book you want to update
+A_clash_of_swords
+
+Book is not in stock
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+3
+
+Enter name of book you want to update
+A_clash_of_kings
+
+Enter updated name of book:A_storm_of_swords
+
+Enter updated name of author of book  george_r_r_martin
+
+Enter updated name of publisher of book:harper_voyager
+
+Enter updated price of book:600
+
+Enter updated stock of book:40
+title               Author              Publisher           Price     Stock         
+A_storm_of_swords   george_r_r_martin   harper_voyager      600       40             
+
+
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+4
+
+Enter name of book you want to search
+mahashweta
+title               Author              Publisher           Price     Stock         
+mahashweta          sudha_murti         penguin_books       150       30             
+
+
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+4
+
+Enter name of book you want to search
+A_dance_of_dragons
+
+Book is not in stock
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+5
+
+Enter name of book you want to buy
+A_clash_of_kings
+
+Book is not in stock
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+5
+
+Enter name of book you want to buy
+A_storm_of_swords
+
+Enter number of copies want to buy:5
+
+Book bought successfully
+Do u want to choose another option? (0/1)1
+
+1.Add book
+2.Display book details
+3.Update book details
+4.Search book by title
+5.Buy a book
+6.Transaction History
+
+Enter choice
+6
+
+Transaction record
+
+Successful transactions:1
+Unsuccessful transactions:0
+Do u want to choose another option? (0/1)0
+

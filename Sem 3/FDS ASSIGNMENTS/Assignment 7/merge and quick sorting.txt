@@ -1,0 +1,202 @@
+#include<stdio.h>
+
+/*sorting with recursion*/
+void merge(int a[],int l,int m,int r,int n)
+{
+  int s1=m-l+1,s2=r-m,i,j,k;
+  int L[s1],R[s2];
+  static int c;
+
+      for(i=0;i<s1;i++)
+      {
+        L[i]=a[l+i];
+      }
+
+      for(j=0;j<s1;j++)
+     {
+       R[j]=a[m+1+j];
+     }
+
+     i=0;j=0;k=l;
+     while(i<s1 && j<s2)
+     {
+      if(L[i]<=R[j])
+      {
+        a[k]=L[i];
+        i++;
+      }
+      else
+     {
+       a[k]=R[j];
+       j++;
+     }
+      k++;
+     }
+
+    while(i<s1)
+    {
+       a[k]=L[i];
+       i++;
+       k++;
+    }
+
+    while(j<s2)
+    {
+       a[k]=R[j];
+       j++;
+       k++;
+    }
+
+    printf("\n\nAfter pass %d :",c);
+    c++;
+    for(i=0;i<n;i++)
+    {
+      printf(" %d ",a[i]);
+    }
+      printf("\n");
+}
+
+
+/*merging of two arrays*/
+void mergesort(int a[],int l,int r,int n)
+{
+          if(l<r)
+        {
+          int m=(l+r)/2;
+
+          mergesort(a,l,m,n);
+          mergesort(a,m+1,r,n);
+          merge(a,l,m,r,n);
+        }
+        else
+            return;
+}
+
+
+int qsort(int a[],int l,int r,int n)
+{
+    int pivot=a[r],i=l-1,j,k;
+
+    for(j=l;j<=r;j++)
+    {
+        if(a[j]<pivot)
+        {
+            i++;
+            k=a[i];
+            a[i]=a[j];
+            a[j]=k;
+        }
+
+    }
+    k=a[i+1];
+    a[i+1]=a[r];
+    a[r]=k;
+
+    return (i+1);
+
+}
+
+void quicksort(int a[],int l,int r,int n)
+{
+    if(l<r)
+    {
+        int p=qsort(a,l,r,n);
+
+        quicksort(a,l,p-1,n);
+        quicksort(a,p+1,r,n);
+
+    }
+}
+
+
+
+int main()
+{
+  int a[50],i,n,l=0,ch,f;
+  printf("Enter  number of elements:");
+  scanf("%d",&n);
+  int r=n-1;
+  printf("\nEnter elements:");
+  for(i=0;i<n;i++)
+  {
+      scanf("%d",&a[i]);
+  }
+
+  do
+    {
+    printf("\n1.Merge sorting with recursion\n");
+    printf("2.Quick sorting with recursion\n");
+    printf("\nEnter your choice\n");
+    scanf("%d",&ch);
+    printf("\n");
+
+    switch(ch)
+
+    {
+        
+     case 1:
+     mergesort(a,l,r,n);
+     break;
+
+     
+     case 2:
+     quicksort(a,l,r,n);
+     printf("\n\nsorted array:");
+     for(i=0;i<n;i++)
+     {
+      printf(" %d ",a[i]);
+     }
+      printf("\n");
+      break;
+
+    }
+    printf("\nDo u want to choose other option?  (0/1)");
+    scanf("%d",&f);
+   }
+   while(f==1);
+
+  return 0;
+}
+
+
+Output:
+Enter  number of elements:5
+
+Enter elements:32
+87
+90
+54
+64
+
+1.Merge sorting with recursion
+2.Quick sorting with recursion
+
+Enter your choice
+1
+
+
+
+After pass 0 : 32  87  90  54  64
+
+
+After pass 1 : 32  87  90  54  64
+
+
+After pass 2 : 32  87  90  54  64
+
+
+After pass 3 : 32  54  64  87  90
+
+Do u want to choose other option?  (0/1)1
+
+1.Merge sorting with recursion
+2.Quick sorting with recursion
+
+Enter your choice
+2
+
+
+
+sorted array: 32  54  64  87  90
+
+Do u want to choose other option?  (0/1)0

@@ -1,0 +1,417 @@
+#include<iostream>
+#include<string.h>
+#include<iomanip>
+using namespace std;
+
+class b1
+{
+  char bg[20],dob[10];
+
+ public:
+ char name[20];
+ void accept();
+ void display();
+};
+
+void b1::accept()
+{
+ cout<<"\n\nEnter name:";
+ cin>>name;
+
+ cout<<"Enter date of birth:";
+ cin>>dob;
+
+ cout<<"Enter blood group:";
+ cin>>bg;
+}
+
+void b1::display()
+{
+ cout<<left<<setw(10)<<name<<left<<setw(10)<<dob<<left<<setw(10)<<bg;
+}
+
+
+class b2
+{
+ float h,w;
+
+ public:
+ void accept();
+ void display();
+};
+
+void b2::accept()
+{
+ cout<<"Enter height:";
+ cin>>h;
+
+ cout<<"Enter weight:";
+ cin>>w;
+
+}
+
+void b2::display()
+{
+ cout<<left<<setw(10)<<h<<left<<setw(10)<<w;
+}
+
+class b3
+{
+ int ipn;
+ char con_ad[100];
+
+ public:
+ void accept();
+ void display();
+};
+
+void b3::accept()
+{
+ cout<<"Enter insurance policy no.:";
+ cin>>ipn;
+
+ cout<<"Enter contact address:";
+ cin>>con_ad;
+}
+
+void b3::display()
+{
+ cout<<left<<setw(15)<<ipn<<left<<setw(40)<<con_ad;
+}
+
+class d:public b1,public b2,public b3
+{
+ char ph_no[20],lic[20];
+
+ public:
+ void accept();
+ void display();
+};
+
+
+void d::accept()
+{
+ b1::accept();
+ b2::accept();
+ b3::accept();
+ cout<<"Enter telephone no.:";
+ cin>>ph_no;
+
+ cout<<"Enter driving licence no.:";
+ cin>>lic;
+}
+
+
+void d::display()
+{
+
+ b1::display();
+ b2::display();
+ b3::display();
+ cout<<left<<setw(10)<<ph_no<<right<<setw(10)<<lic;
+ cout<<"\n"<<endl;
+}
+
+
+/*main function*/
+int main()
+{
+   int i,n,f,ch,loc,flag=0;
+   char na[20];
+   d D[20];
+   do
+   {
+       cout<<"\n1.Build master table \n2.Display \n3.Insert a new entry \n4.Delete entry \n5.Edit \n6.Search for a record\n";
+       cout<<"Enter your choice\n";
+       cin>>ch;
+       switch(ch)
+       {
+         /*case for building master table*/
+         case 1:
+         cout<<"\nEnter number of records you want to enter :";
+         cin>>n;
+
+         for(i=0;i<n;i++)
+           D[i].accept();
+         break;
+
+
+         /*case for diplaying master table*/
+         case 2:
+             cout<<"\n.........................................................Master Table............................................\n";
+         cout<<left<<setw(10)<<"Name"<<left<<setw(10)<<"Dob"<<left<<setw(10)<<"Bg"<<left<<setw(10)<<"Height"<<left<<setw(10)<<"Weight"<<left<<setw(15)<<"Ipn"<<left<<setw(40)<<"Con_Address"<<left<<setw(10)<<"Ph_no"<<right<<setw(10)<<"License_no\n";
+         cout<<"\n"<<endl;
+         for(i=0;i<n;i++)
+            D[i].display();
+         break;
+
+
+         /*case for entering new record*/
+         case 3:
+         cout<<"\nEnter location where u want to insert new record";
+         cin>>loc;
+
+          for(i=n;i>=loc;i--)
+          {
+             D[i]=D[i-1];
+          }
+
+         cout<<"\nEnter new record ";
+          D[loc-1].accept();
+
+          cout<<"\n...........................................Master Table............................................\n";
+          cout<<left<<setw(10)<<"Name"<<left<<setw(10)<<"Dob"<<left<<setw(10)<<"Bg"<<left<<setw(10)<<"Height"<<left<<setw(10)<<"Weight"<<left<<setw(15)<<"Ipn"<<left<<setw(40)<<"Con_Address"<<left<<setw(10)<<"Ph_no"<<right<<setw(10)<<"License_no\n";
+          cout<<"\n"<<endl;
+
+          for(i=0;i<n+1;i++)
+            D[i].display();
+          break;
+
+          /*case for deleting record*/
+          case 4:
+          cout<<"\nEnter location whose record u want to delete";
+          cin>>loc;
+
+           for(i=loc-1;i<n-1;i++)
+           {
+             D[i]=D[i+1];
+           }
+
+           cout<<"\n...........................................Master Table............................................\n";
+           cout<<left<<setw(10)<<"Name"<<left<<setw(10)<<"Dob"<<left<<setw(10)<<"Bg"<<left<<setw(10)<<"Height"<<left<<setw(10)<<"Weight"<<left<<setw(15)<<"Ipn"<<left<<setw(40)<<"Con_Address"<<left<<setw(10)<<"Ph_no"<<right<<setw(10)<<"License_no\n";
+           cout<<"\n"<<endl;
+
+          for(i=0;i<n-1;i++)
+            D[i].display();
+          break;
+
+          /*case for editing record*/
+          case 5:
+          cout<<"\nEnter location whose record u want to edit";
+          cin>>loc;
+
+          cout<<"\nEdit data ";
+          D[loc-1].accept();
+
+          cout<<"\n...........................................Master Table............................................\n";
+          cout<<left<<setw(10)<<"Name"<<left<<setw(10)<<"Dob"<<left<<setw(10)<<"Bg"<<left<<setw(10)<<"Height"<<left<<setw(10)<<"Weight"<<left<<setw(15)<<"Ipn"<<left<<setw(40)<<"Con_Address"<<left<<setw(10)<<"Ph_no"<<right<<setw(10)<<"License_no\n";
+          cout<<"\n"<<endl;
+
+          for(i=0;i<n;i++)
+            D[i].display();
+          break;
+
+          /*case for searching record*/
+          case 6:
+          cout<<"\nEnter name for search:";
+          cin>>na;
+          for(i=0;i<n;i++)
+          {
+              if(strcmp(D[i].name,na)==0)
+              {
+                  cout<<"\n...........................................Master Table............................................\n";
+                  cout<<left<<setw(10)<<"Name"<<left<<setw(10)<<"Dob"<<left<<setw(10)<<"Bg"<<left<<setw(10)<<"Height"<<left<<setw(10)<<"Weight"<<left<<setw(15)<<"Ipn"<<left<<setw(40)<<"Con_Address"<<left<<setw(10)<<"Ph_no"<<right<<setw(10)<<"License_no\n";
+                  cout<<"\n"<<endl;
+
+                 D[i].display();
+                 flag=1;
+              }
+          }
+          if(flag==0)
+            cout<<"\nRecord not found";
+          break;
+       }
+       cout<<"\nDo u want to choose another option? (0/1)";
+       cin>>f;
+   }
+   while(f==1);
+   return 0;
+}
+
+
+
+Output:
+
+Output:
+
+1.Build master table
+2.Display
+3.Insert a new entry
+4.Delete entry
+5.Edit
+6.Search for a record
+Enter your choice
+1
+
+Enter number of records you want to enter :3
+
+
+Enter name:omkar
+Enter date of birth:3/6/2000
+Enter blood group:A+
+Enter height:56
+Enter weight:57
+Enter insurance policy no.:325
+Enter contact address: Bhausingji_road,near_bhavani_mandap
+Enter telephone no.:9881077621
+Enter driving licence no.:5767
+
+
+Enter name:shubham
+Enter date of birth:6/3/2001
+Enter blood group:O+
+Enter height:55
+Enter weight:60
+Enter insurance policy no.:3456
+Enter contact address: Bhausingji_road,near_bhavani_mandap
+Enter telephone no.:8805384696
+Enter driving licence no.:2345
+
+
+Enter name:amey
+Enter date of birth:6/5/2003
+Enter blood group:AB
+Enter height:54
+Enter weight:56
+Enter insurance policy no.:6577
+Enter contact address: Bhausingji_road,near_bhavani_mandap
+Enter telephone no.:8329392131
+Enter driving licence no.:3466
+
+Do u want to choose another option? (0/1)1
+
+1.Build master table
+2.Display
+3.Insert a new entry
+4.Delete entry
+5.Edit
+6.Search for a record
+Enter your choice
+2
+
+.........................................................Master Table............................................
+Name      Dob       Bg   Ht   Wt   Ipn       Con_Address                             Ph_no     License_no
+
+
+omkar     3/6/2000  A+   56   57   325       Bhausingji_road,near_bhavani_mandap     9881077621      5767
+
+shubham   6/3/2001  O+   55   60   3456      Bhausingji_road,near_bhavani_mandap     8805384696      2345
+
+amey      6/5/2003  AB   54   56   6577      Bhausingji_road,near_bhavani_mandap     8329392131      3466
+
+Do u want to choose another option? (0/1)1
+
+1.Build master table
+2.Display
+3.Insert a new entry
+4.Delete entry
+5.Edit
+6.Search for a record
+Enter your choice
+3
+
+Enter location where u want to insert new record 1
+
+Enter new record
+
+Enter name:maitreya
+Enter date of birth:4/3/2001
+Enter blood group:A+
+Enter height:56
+Enter weight:60
+Enter insurance policy no.:436
+Enter contact address: Bhausingji_road,near_bhavani_mandap
+Enter telephone no.:9045738459
+Enter driving licence no.:557
+
+...........................................Master Table............................................
+Name      Dob       Bg   Ht   Wt   Ipn       Con_Address                             Ph_no     License_no
+
+
+maitreya  4/3/2001  A+   56   60   436       Bhausingji_road,near_bhavani_mandap     9045738459       557
+
+omkar     3/6/2000  A+   56   57   325       Bhausingji_road,near_bhavani_mandap     9881077621      5767
+
+shubham   6/3/2001  O+   55   60   3456      Bhausingji_road,near_bhavani_mandap     8805384696      2345
+
+amey      6/5/2003  AB   54   56   6577      Bhausingji_road,near_bhavani_mandap     8329392131      3466
+
+Do u want to choose another option? (0/1)1
+
+1.Build master table
+2.Display
+3.Insert a new entry
+4.Delete entry
+5.Edit
+6.Search for a record
+Enter your choice
+4
+
+Enter location whose record u want to delete 2
+
+...........................................Master Table............................................
+Name      Dob       Bg   Ht   Wt   Ipn       Con_Address                             Ph_no     License_no
+
+
+maitreya  4/3/2001  A+   56   60   436       Bhausingji_road,near_bhavani_mandap     9045738459       557
+
+shubham   6/3/2001  O+   55   60   3456      Bhausingji_road,near_bhavani_mandap     8805384696      2345
+
+amey      6/5/2003  AB   54   56   6577      Bhausingji_road,near_bhavani_mandap     8329392131      3466
+
+Do u want to choose another option? (0/1)1
+
+1.Build master table
+2.Display
+3.Insert a new entry
+4.Delete entry
+5.Edit
+6.Search for a record
+Enter your choice
+5
+
+Enter location whose record u want to edit 1
+
+Edit data
+
+Enter name:omkar
+Enter date of birth:6/3/2001
+Enter blood group:A+
+Enter height:65
+Enter weight:64
+Enter insurance policy no.:35
+Enter contact address: Bhausingji_road,near_bhavani_mandap
+Enter telephone no.:9874532654
+Enter driving licence no.:436
+
+...........................................Master Table............................................
+Name      Dob       Bg   Ht   Wt   Ipn       Con_Address                             Ph_no     License_no
+
+
+omkar     6/3/2001  A+   65   64   35        Bhausingji_road,near_bhavani_mandap     9874532654       436
+
+shubham   6/3/2001  O+   55   60   3456      Bhausingji_road,near_bhavani_mandap     8805384696      2345
+
+amey      6/5/2003  AB   54   56   6577      Bhausingji_road,near_bhavani_mandap     8329392131      3466
+
+Do u want to choose another option? (0/1)1
+
+1.Build master table
+2.Display
+3.Insert a new entry
+4.Delete entry
+5.Edit
+6.Search for a record
+Enter your choice
+6
+
+Enter name for search:shubham
+
+...........................................Master Table............................................
+Name      Dob       Bg   Ht   Wt   Ipn       Con_Address                             Ph_no     License_no
+
+
+shubham   6/3/2001  O+   55   60   3456      Bhausingji_road,near_bhavani_mandap     8805384696      2345
+
+Do u want to choose another option? (0/1)0
+

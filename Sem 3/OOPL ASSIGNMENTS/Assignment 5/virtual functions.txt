@@ -1,0 +1,111 @@
+#include<iostream>
+using namespace std;
+
+class shape
+{
+  public:
+  double s1,s2;
+  void accept()
+  {
+    cout<<"\nEnter dimensions\n";
+    cin>>s1;
+    cout<<"\n";
+    cin>>s2;
+  }
+
+  virtual void compute_area()=0;
+};
+
+
+class triangle:public shape
+{
+ public:
+ void compute_area()
+ {
+   cout<<"\nArea of triangle is "<<(0.5*s1*s2);
+ }
+
+};
+
+
+class rectangle:public shape
+{
+  public:
+  void compute_area()
+  {
+    cout<<"\nArea of rectangle is "<<(s1*s2);
+  }
+};
+
+
+int main()
+{
+  shape *s;
+  triangle t;
+  rectangle r;
+  int f,ch;
+  do
+  {
+    cout<<"\n1.Area of triangle";
+    cout<<"\n2.Area of rectangle";
+    cout<<"\nChoose option:";
+    cin>>ch;
+
+    switch(ch)
+    {
+     case 1:
+     s=&t;
+     s->accept();
+     s->compute_area();
+     break;
+
+     case 2:
+     s=&r;
+     s->accept();
+     s->compute_area();
+     break;
+    }
+
+
+   cout<<"\nDo u want to choose other option? (0/1)";
+   cin>>f;
+
+  }
+  while(f==1);
+
+  return 0;
+}
+
+
+Output:
+
+
+1.Area of triangle
+2.Area of rectangle
+Choose option:1
+
+Enter dimensions
+0
+
+-2
+
+Dimensions should be greater than 0 !!!
+Enter again
+45
+
+32
+
+Area of triangle is 720
+Do u want to choose other option? (0/1)1
+
+1.Area of triangle
+2.Area of rectangle
+Choose option:2
+
+Enter dimensions
+34
+
+67
+
+Area of rectangle is 2278
+Do u want to choose other option? (0/1)0
